@@ -32,7 +32,7 @@ Install the required node packages using:
   npm install
 ```
 
-Run the server using vite:
+Run the server using `Vite`:
 ```bash
   npm run dev
 ```
