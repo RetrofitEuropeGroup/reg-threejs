@@ -1,0 +1,20 @@
+{
+  "name": "reg-threejs",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.3.7",
+    "postcss": "^8.3.9",
+    "tailwindcss": "^2.2.16",
+    "vite": "^2.6.4"
+  },
+  "dependencies": {
+    "three": "^0.133.1",
+    "tween.js": "^16.6.0",
+    "tweenjs": "^1.0.2"
+  }
+}
