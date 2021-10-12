@@ -4,7 +4,7 @@ import * as THREE from "three";
 var scene = new THREE.Scene();
 
 // field of view
-var fov = 20;
+var fov = 90;
 // aspect ratio - use full width of container / height
 var aspect = window.innerWidth / window.innerHeight;
 // setup the clipping plane
@@ -30,26 +30,35 @@ window.addEventListener("resize", onWindowResize, false);
 // setup dimensions of the sphere
 var radius = 300;
 // moar segments == moar roundedness!
-var widthSegments = 60;
-var heightSegments = 30;
+var widthSegments = 120;
+var heightSegments = 120;
 
-var geometry = new THREE.SphereBufferGeometry(
+var globe = new THREE.SphereBufferGeometry(
   radius,
   widthSegments,
   heightSegments
 );
 var material = new THREE.MeshNormalMaterial();
-var mesh = new THREE.Mesh(geometry, material);
-
+var mesh = new THREE.Mesh(globe, material);
 scene.add(mesh);
 
-const wireframeGeometry = new THREE.WireframeGeometry(geometry);
+function CreateBuilding(){
+  var geomBuilding = new THREE.CubeGeometry(300, 300 , 300);
+	var matBuilding = new THREE.MeshBasicMaterial({color: "white", wireframe: true});
+	var Building = new THREE.Mesh(geomBuilding, matBuilding);
+  Building.mesh.position.setFromSphericalCoords(300+0.01, 1, 1);
+  Building.mesh.lookAt(sphere.position);
+  scene.add(Building);
+}
+
+const wireframeGeometry = new THREE.WireframeGeometry(globe);
 const wireframeMaterial = new THREE.LineBasicMaterial({ color: 0x42b883 });
 const wireframe = new THREE.LineSegments(wireframeGeometry, wireframeMaterial);
 
 mesh.add(wireframe);
 
-mesh.position.set(0, -320, 0);
+mesh.position.set(0, 0, 0);
+mesh.rotation.set(0, 0, Math.PI/2);
 
 createjs.Ticker.timingMode = createjs.Ticker.RAF;
 createjs.Ticker.addEventListener("tick", animate);
@@ -98,6 +107,8 @@ function onWindowResize() {
 document
   .getElementById("globe_scene")
   .addEventListener("wheel", (event) => transformX(event));
+
+CreateBuilding()
 
 function animate() {
   renderer.render(scene, camera);
